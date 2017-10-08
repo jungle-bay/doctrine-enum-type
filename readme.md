@@ -1,6 +1,4 @@
-# doctrine-enum-type
-
-Doctrine Enum Type
+# Doctrine Enum Type
 
 ```php
 <?php
