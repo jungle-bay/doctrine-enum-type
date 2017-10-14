@@ -10,7 +10,6 @@
 
 namespace Acme\Types;
 
-
 use Doctrine\DBAL\Types\EnumType;
 
 class SexType extends EnumType {
