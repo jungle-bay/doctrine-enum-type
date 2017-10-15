@@ -48,6 +48,8 @@ class SexType extends EnumType {
 > Do not forget to register the type!
 > 
 > ```php
+> use Doctrine\DBAL\Types\Type;
+> 
 > Type::addType('sex_type', SexType::class);
 > 
 > $conn->getDatabasePlatform()->registerDoctrineTypeMapping('sex', 'sex_type');
