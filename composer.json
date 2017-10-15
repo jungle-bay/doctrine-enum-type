@@ -1,6 +1,6 @@
 {
     "name": "jungle-bay/doctrine-enum-type",
-    "description": "Doctrine Set Type",
+    "description": "Enum Type for Doctrine",
     "type": "library",
     "keywords": [
         "php",
