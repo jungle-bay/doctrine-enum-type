@@ -21,7 +21,7 @@ abstract class EnumType extends Type {
 
         if (empty($value)) {
 
-            return $value;
+            return null;
         }
 
         if (in_array($value, $this->getValue())) {
@@ -29,7 +29,7 @@ abstract class EnumType extends Type {
             return $value;
         }
 
-        throw new InvalidArgumentException('Invalid ' . $this->getName() . ' type.');
+        throw new InvalidArgumentException('Invalid "' . $this->getName() . '" type, "' . $value . '" not allowed.');
     }
 
     /**

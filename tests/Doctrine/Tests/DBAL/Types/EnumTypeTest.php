@@ -13,7 +13,11 @@ class EnumTypeTest extends TestCase {
      * @return AbstractPlatform
      */
     public function getPlatform() {
-        return $this->getMockForAbstractClass(AbstractPlatform::class);
+
+        /** @var AbstractPlatform $mockPlatform */
+        $mockPlatform = $this->getMockForAbstractClass(AbstractPlatform::class);
+
+        return $mockPlatform;
     }
 
     /**
@@ -21,27 +25,64 @@ class EnumTypeTest extends TestCase {
      */
     public function getType() {
 
-        $typeBuilder = $this->getMockBuilder(EnumType::class);
-        $typeBuilder = $typeBuilder->disableOriginalConstructor();
-        $typeBuilder = $typeBuilder->setMethods(array('getValue', 'getName'));
+        $mockBuilder = $this->getMockBuilder(EnumType::class);
+        $mockBuilder = $mockBuilder->disableOriginalConstructor();
+        $mockBuilder = $mockBuilder->setMethods(array('getValue', 'getName'));
 
-        /** @var EnumType $type */
-        $type = $typeBuilder->getMock();
+        /** @var EnumType $mock */
+        $mock = $mockBuilder->getMock();
+        $mock->method('getName')->will($this->returnValue('test'));
+        $mock->method('getValue')->will($this->returnValue(array('GET', 'SET')));
 
-        return $type;
+        return $mock;
     }
 
-    public function testConvertsToPHPValue() {
 
-        $result = $this->getType()->convertToPHPValue('ONE', $this->getPlatform());
+    public function testConvertToDatabaseNullValue() {
 
-        $this->assertEquals('ONE', $result);
+        $result = $this->getType()->convertToDatabaseValue(null, $this->getPlatform());
+
+        $this->assertNull($result);
     }
 
-    public function testNullConvertsToPHPValue() {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testConvertToDatabaseValueNotAllowed() {
+
+        $this->getType()->convertToDatabaseValue('NOT_ALLOWED', $this->getPlatform());
+    }
+
+    public function testConvertToDatabaseValue() {
+
+        $result = $this->getType()->convertToDatabaseValue('GET', $this->getPlatform());
+
+        $this->assertEquals('GET', $result);
+    }
+
+    public function testConvertToPHPNullValue() {
 
         $result = $this->getType()->convertToPHPValue(null, $this->getPlatform());
 
-        $this->assertEquals(null, $result);
+        $this->assertNull($result);
+    }
+
+    public function testConvertToPHPValue() {
+
+        $result = $this->getType()->convertToPHPValue('TEST', $this->getPlatform());
+
+        $this->assertEquals('TEST', $result);
+    }
+
+    public function testGetSQLDeclaration() {
+
+        $result = $this->getType()->getSQLDeclaration(array(), $this->getPlatform());
+
+        $this->assertEquals('SET ( \'GET\',\'SET\' )', $result);
+    }
+
+    public function testRequiresSQLCommentHint() {
+
+        $this->assertTrue($this->getType()->requiresSQLCommentHint($this->getPlatform()));
     }
 }
