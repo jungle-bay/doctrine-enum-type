@@ -43,6 +43,24 @@ class SexType extends EnumType {
 }
 ```
 
+##### Example use entities
+
+```php
+<?php
+
+use Doctrine\ORM\Mapping as ORM;
+
+class User {
+    
+    /**
+     * @ORM\Column(
+     *     type = "sex_type"
+     * )
+     */
+    private $sex;
+}
+```
+
 #### Warning
 
 > Do not forget to register the type!
