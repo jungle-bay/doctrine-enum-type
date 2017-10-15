@@ -43,11 +43,11 @@ class SexType extends EnumType {
 }
 ```
 
-> Warning!!! Do not forget to register the type!
+#### Warning
+
+> Do not forget to register the type!
 > 
 > ```php
-> <?php
-> 
 > Type::addType('sex_type', SexType::class);
 > 
 > $conn->getDatabasePlatform()->registerDoctrineTypeMapping('sex', 'sex_type');
