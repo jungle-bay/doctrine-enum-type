@@ -3,15 +3,23 @@
 namespace Doctrine\Test\DBAL\Types;
 
 
-use Doctrine\DBAL\Types\EnumType;
 use PHPUnit\Framework\TestCase;
+use Doctrine\DBAL\Types\EnumType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class EnumTypeTest extends TestCase {
 
-    public function testType() {
+    /**
+     * @return AbstractPlatform
+     */
+    public function getPlatform() {
+        return $this->getMockForAbstractClass(AbstractPlatform::class);
+    }
 
-        $platform = $this->getMockForAbstractClass(AbstractPlatform::class);
+    /**
+     * @return EnumType
+     */
+    public function getType() {
 
         $typeBuilder = $this->getMockBuilder(EnumType::class);
         $typeBuilder = $typeBuilder->disableOriginalConstructor();
@@ -20,9 +28,20 @@ class EnumTypeTest extends TestCase {
         /** @var EnumType $type */
         $type = $typeBuilder->getMock();
 
-        /** @var AbstractPlatform $platform */
-        $result = $type->convertToPHPValue('ONE', $platform);
+        return $type;
+    }
+
+    public function testConvertsToPHPValue() {
+
+        $result = $this->getType()->convertToPHPValue('ONE', $this->getPlatform());
 
         $this->assertEquals('ONE', $result);
+    }
+
+    public function testNullConvertsToPHPValue() {
+
+        $result = $this->getType()->convertToPHPValue(null, $this->getPlatform());
+
+        $this->assertEquals(null, $result);
     }
 }
