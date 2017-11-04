@@ -22,9 +22,7 @@ abstract class EnumType extends Type {
         if (empty($value)) {
 
             return null;
-        }
-
-        if (in_array($value, $this->getValue())) {
+        } elseif (in_array($value, $this->getValue())) {
 
             return $value;
         }
