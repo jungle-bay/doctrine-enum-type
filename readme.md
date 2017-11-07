@@ -48,6 +48,9 @@ class SexType extends EnumType {
 ```php
 <?php
 
+namespace Acme\Entities;
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 class User {
