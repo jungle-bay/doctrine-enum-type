@@ -1,13 +1,18 @@
+<p align="center">
+    <a href="https://github.com/jungle-bay/telegram-bot-api">
+        <img width="128" height="128" src="logo.png" alt="Telegram Bot API Logo">
+    </a>
+</p>
+
 # Enum Type for [Doctrine](http://www.doctrine-project.org/)
 
 [![Travis CI](https://img.shields.io/travis/jungle-bay/doctrine-enum-type.svg?style=flat)](https://travis-ci.org/jungle-bay/doctrine-enum-type)
 [![Scrutinizer CI](https://img.shields.io/scrutinizer/g/jungle-bay/doctrine-enum-type.svg?style=flat)](https://scrutinizer-ci.com/g/jungle-bay/doctrine-enum-type)
 [![Codecov](https://img.shields.io/codecov/c/github/jungle-bay/doctrine-enum-type.svg?style=flat)](https://codecov.io/gh/jungle-bay/doctrine-enum-type)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/d630c226-36d3-4e03-ba2b-04a4a8751af6.svg?style=flat)](https://insight.sensiolabs.com/projects/d630c226-36d3-4e03-ba2b-04a4a8751af6)
 
 ### Install
 
-The recommended way to install is through [Composer](https://getcomposer.org):
+The recommended way to install is through [Composer](https://getcomposer.org/doc/00-intro.md#introduction):
 
 ```bash
 composer require jungle-bay/doctrine-enum-type
@@ -25,20 +30,22 @@ use Doctrine\DBAL\Types\EnumType;
 
 class SexType extends EnumType {
 
-    const MAN = 'MAN';
-    const WOMAN = 'WOMAN';
+    const NAME = 'sex_type';
+
+    const MAN_VALUE = 'MAN';
+    const WOMAN_VALUE = 'WOMAN';
 
 
     protected function getValue() {
         return array(
-            self::MAN,
-            self::WOMAN
+            self::MAN_VALUE,
+            self::WOMAN_VALUE
         );
     }
 
 
     public function getName() {
-        return 'sex_type';
+        return self::NAME;
     }
 }
 ```
@@ -53,6 +60,13 @@ namespace Acme\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity()
+ * 
+ * @ORM\Table(
+ *     name = "users"
+ * )
+ */
 class User {
     
     /**
@@ -66,14 +80,14 @@ class User {
 
 #### Warning
 
-> Do not forget to register the type!
+> Do not forget to register the [type](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/custom-mapping-types.html)!
 > 
 > ```php
 > use Doctrine\DBAL\Types\Type;
 > 
-> Type::addType('sex_type', SexType::class);
+> Type::addType(SexType::NAME, SexType::class);
 > 
-> $conn->getDatabasePlatform()->registerDoctrineTypeMapping('sex', 'sex_type');
+> $conn->getDatabasePlatform()->registerDoctrineTypeMapping('sex', SexType::NAME);
 > ```
 
 ### License

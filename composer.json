@@ -5,8 +5,8 @@
     "keywords": [
         "php",
         "doctrine",
-        "enum",
-        "type"
+        "doctrine-type",
+        "doctrine-type-enum"
     ],
     "license": "MIT",
     "authors": [
