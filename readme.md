@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://github.com/jungle-bay/telegram-bot-api">
-        <img height="128" src="logo.png" alt="Telegram Bot API Logo">
+    <a href="https://github.com/jungle-bay/doctrine-enum-type">
+        <img height="128" src="logo.png" alt="Doctrine Logo">
     </a>
 </p>
 
