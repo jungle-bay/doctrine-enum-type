@@ -84,7 +84,8 @@ class User {
 > 
 > ```php
 > \Doctrine\DBAL\Types\Type::addType(SexType::NAME, SexType::class);
-> 
+>
+> $conn = $em->getConnection();
 > $conn->getDatabasePlatform()->registerDoctrineTypeMapping('sex', SexType::NAME);
 > ```
 
