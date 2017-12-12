@@ -83,9 +83,7 @@ class User {
 > Do not forget to register the [type](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/custom-mapping-types.html)!
 > 
 > ```php
-> use Doctrine\DBAL\Types\Type;
-> 
-> Type::addType(SexType::NAME, SexType::class);
+> \Doctrine\DBAL\Types\Type::addType(SexType::NAME, SexType::class);
 > 
 > $conn->getDatabasePlatform()->registerDoctrineTypeMapping('sex', SexType::NAME);
 > ```
